@@ -3,7 +3,11 @@ package com.whatsapp.bot.Services;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -13,14 +17,27 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-@AllArgsConstructor
 public class ChatGPTService {
 
+
+    @Value("${openai.api.key}")
+    private String openaiApiKey;
+
+    @Autowired
     private final RestTemplate restTemplate;
+
+    @Autowired
     private final ObjectMapper objectMapper;
 
+    public ChatGPTService(RestTemplate restTemplate, ObjectMapper objectMapper) {
+        this.restTemplate = restTemplate;
+        this.objectMapper = objectMapper;
+    }
+
+
     public String gptConnection(String prompt) {
-        String openaiApiKey = "sk-proj-eCEG1aBYeTJKzRJGBLRpT3BlbkFJ2qOQGkQrSQmZ4w5iEXX2";
+
+
         String openaiEndpoint = "https://api.openai.com/v1/chat/completions";
 
         HttpHeaders headers = new HttpHeaders();
