@@ -30,10 +30,8 @@ public class MessageController {
     @Getter
     @AllArgsConstructor
     public static class MessageRequest {
-        // Getters and setters
         private String to;
         private String body;
-
     }
 
 
